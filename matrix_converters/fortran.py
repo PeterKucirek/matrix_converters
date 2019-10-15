@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 
-from common import coerce_matrix
+from matrix_converters.common import coerce_matrix
 
 
 def from_fortran_rectangle(file, n_columns, zones=None, tall=False, reindex_rows=False, fill_value=None):
@@ -31,7 +31,7 @@ def from_fortran_rectangle(file, n_columns, zones=None, tall=False, reindex_rows
         AssertionError if the shape is not valid.
     """
 
-    if isinstance(file, basestring):
+    if isinstance(file, str):
         with open(file, 'rb') as reader:
             return _from_fortran_binary(reader, n_columns, zones, tall, reindex_rows, fill_value)
     return _from_fortran_binary(file, n_columns, zones, tall, reindex_rows, fill_value)
@@ -96,7 +96,7 @@ def from_fortran_square(file, zones=None, tall=False):
         DataFrame or ndarray
 
     """
-    if isinstance(file, basestring):
+    if isinstance(file, str):
         with open(file, 'rb') as reader:
             return _from_fortran_square(reader, zones, tall)
     return _from_fortran_square(file, zones, tall)
@@ -156,7 +156,7 @@ def to_fortran(matrix, file, force_square=True, min_index=1):
     """
     array = coerce_matrix(matrix, force_square=force_square)
 
-    if isinstance(file, basestring):
+    if isinstance(file, str):
         with open(file, 'wb') as writer:
             _to_fortran(array, writer, min_index)
     else:

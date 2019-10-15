@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 
-from common import coerce_matrix
+from matrix_converters.common import coerce_matrix
 
 
 def from_mdf(file, raw=False, tall=False):
@@ -17,7 +17,7 @@ def from_mdf(file, raw=False, tall=False):
     Returns:
         ndarray or DataFrame of the matrix stored in the file.
     """
-    if isinstance(file, basestring):
+    if isinstance(file, str):
         with open(file, 'rb') as reader:
             return _from_mdf(reader, raw, tall)
     else:
@@ -68,7 +68,7 @@ def to_mdf(matrix, file):
             MultiIndex with exactly 2 levels to unstack.
         file (basestring or File): The path or file handler to write to.
     """
-    if isinstance(file, basestring):
+    if isinstance(file, str):
         with open(file, 'wb') as writer:
             _to_mdf(matrix, writer)
     else:
@@ -125,7 +125,7 @@ def from_emx(file, zones=None, tall=False):
         >> <class 'pandas.core.series.Series'> 100
 
     """
-    if isinstance(file, basestring):
+    if isinstance(file, str):
         with open(file, 'rb') as reader:
             return _from_emx(reader, zones, tall)
     else:
@@ -175,7 +175,7 @@ def to_emx(matrix, file, emmebank_zones):
     """
     assert emmebank_zones > 0
 
-    if isinstance(file, basestring):
+    if isinstance(file, str):
         with open(file, 'wb') as writer:
             _to_emx(matrix, writer, emmebank_zones)
     else:
